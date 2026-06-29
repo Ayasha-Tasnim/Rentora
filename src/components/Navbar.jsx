@@ -37,7 +37,7 @@ export default function Navbar() {
     },
   ];
 
-  // // const handleLogout = async () => {
+  //  const handleLogout = async () => {
   //   try {
   //     await authClient.signOut();
 
