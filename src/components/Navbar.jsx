@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 import toast from 'react-hot-toast';
-// import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/lib/auth-client';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -24,7 +24,7 @@ export default function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // const { data: session, isPending } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
 
   const navLinks = [
     {
@@ -37,17 +37,17 @@ export default function Navbar() {
     },
   ];
 
-  //  const handleLogout = async () => {
-  //   try {
-  //     await authClient.signOut();
+  const handleLogout = async () => {
+    try {
+      await authClient.signOut();
 
-  //     toast.success('Logout Successful');
+      toast.success('Logout Successful');
 
-  //     router.push('/login');
-  //   } catch (error) {
-  //     toast.error('Logout Failed');
-  //   }
-  // };
+      router.push('/login');
+    } catch (error) {
+      toast.error('Logout Failed');
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-lg">
@@ -71,7 +71,7 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* {session && (
+          {session && (
             <>
               <Link
                 href="/add-car"
@@ -93,10 +93,10 @@ export default function Navbar() {
                 My Bookings
               </Link>
             </>
-          )} */}
+          )}
         </div>
 
-        {/* <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center gap-4 md:flex">
           {!isPending && !session && (
             <>
               <Link href="/login">
@@ -175,7 +175,7 @@ export default function Navbar() {
               </div>
             </div>
           )}
-        </div> */}
+        </div>
 
         <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
           {isOpen ? (
