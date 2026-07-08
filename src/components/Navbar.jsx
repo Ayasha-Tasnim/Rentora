@@ -16,7 +16,9 @@ import {
 } from 'lucide-react';
 
 import toast from 'react-hot-toast';
+// notification dekhay.(login Successful/failed)
 import { authClient } from '@/lib/auth-client';
+// authentication file(login ,logout ,session sob contrl hocche)
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -95,7 +97,7 @@ export default function Navbar() {
             </>
           )}
         </div>
-
+{/* session && ---login kra thkle add car ,my bookings dekhao */}
         <div className="hidden items-center gap-4 md:flex">
           {!isPending && !session && (
             <>
@@ -112,7 +114,7 @@ export default function Navbar() {
               </Link>
             </>
           )}
-
+{/* !session---login nh kra thkle login, register dekhao */}
           {!isPending && session && (
             <div className="group relative">
               <button className="flex items-center gap-2 rounded-full border border-gray-200 p-1 transition hover:shadow-md">
@@ -127,6 +129,7 @@ export default function Navbar() {
                   className="h-10 w-10 rounded-full object-cover"
                 />
               </button>
+              {/* session ----user image dekhao. nh thkle aavatar dekhao */}
 
               <div className="invisible absolute right-0 top-14 w-64 rounded-2xl border border-gray-100 bg-white p-4 opacity-0 shadow-xl transition-all duration-300 group-hover:visible group-hover:opacity-100">
                 <div className="border-b border-gray-100 pb-3">
