@@ -46,11 +46,11 @@ const AvailableCars = () => {
       <div className="p-4 space-y-1">
         <h3 className="text-lg font-bold text-gray-800">{car.carName}</h3>
 
-        <p className="text-sm text-gray-500">🚗 {car.carType}</p>
+        <p className="text-sm text-gray-500">  {car.carType}</p>
 
-        <p className="text-sm text-gray-500">💰 ${car.dailyRentPrice}/day</p>
+        <p className="text-sm text-gray-500"> ${car.dailyRentPrice}/day</p>
 
-        <p className="text-sm text-gray-500">📍 {car.pickupLocation}</p>
+        <p className="text-sm text-gray-500"> {car.pickupLocation}</p>
 
         <p
           className={`text-sm font-semibold ${

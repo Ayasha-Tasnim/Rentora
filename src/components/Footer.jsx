@@ -19,7 +19,7 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/explore" className="hover:text-white">
+              <Link href="/explore-cars" className="hover:text-white">
                 Explore Cars
               </Link>
             </li>
@@ -29,7 +29,7 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/bookings" className="hover:text-white">
+              <Link href="/my-bookings" className="hover:text-white">
                 My Bookings
               </Link>
             </li>
@@ -42,11 +42,11 @@ export default function Footer() {
           </h2>
 
           <div className="space-y-2 text-sm">
-            <p> Dhaka, Bangladesh</p>
-            <p> +880 123456789</p>
+            <p> Cumilla, Bangladesh</p>
+            <p> +880 1521231818</p>
             <p> support@carrental.com</p>
           </div>
-        </div>
+        </div> 
 
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">
@@ -79,3 +79,10 @@ export default function Footer() {
     </footer>
   );
 }
+// Next.js-এ component দুই ধরনের 1. Server Component 2. Client Component
+
+// Next.js App Router-এ সাধারণভাবে component প্রথমে Server Component হিসেবে ধরা হয়। আর file-এর একদম উপরে 'use client' লিখলে সেই file একটি Client Component-এর entry point হয়।
+
+// Server Component-এর code মূলত server-এ কাজ করে। Server component-এর ফলাফল প্রস্তুত করে browser-এ পাঠায়।
+
+// যখন component-কে browser-এ interactive কাজ করতে হয়, তখন 'use client' প্রয়োজন হয়।

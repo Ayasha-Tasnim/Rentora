@@ -78,8 +78,12 @@ const MyBookingsPage = async () => {
             <div className="mt-3 space-y-1 text-sm text-gray-600">
               <p>📍 Pickup: {booking.pickupLocation}</p>
               <p>
-                🚘 Driver:{' '}
+              Driver:{' '}
                 <span className="font-medium">{booking.driverNeeded}</span>
+              </p>
+              <p>
+                AC:{' '}
+                <span className="font-medium">{booking.ACNeeded}</span>
               </p>
             </div>
 

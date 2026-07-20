@@ -1,10 +1,11 @@
-'use client';
+// 'use client';
 
 import Link from 'next/link';
+// Link ব্যবহার করে এক page থেকে অন্য page - এ যাওয়া হয়।
 
 export default function Banner() {
   return (
-    <section className="bg-gray-900 from-gray-900 to-gray-800 text-white">
+    <section className="bg-linear-to-r from-gray-900 to-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-6 py-24 flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
           Find Your Perfect Rental Car
@@ -27,3 +28,6 @@ export default function Banner() {
     </section>
   );
 }
+// leading-tight- দুই লাইনের heading হলে line-এর মাঝের gap কম রাখে।
+// text-sm - sobcheye choto font size (Mobile-এ ছোট font।) md:text-base -Medium screen থেকে normal font size।
+// bg - linear - to - r----------background-এর রং বাম দিক থেকে ডান দিকে ধীরে ধীরে পরিবর্তন হবে।

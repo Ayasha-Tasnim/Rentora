@@ -1,9 +1,28 @@
 'use client';
 
+// এই Navbar-এ 'use client' অবশ্যই প্রয়োজন। কারণ এখানে browser-side interaction রয়েছে:
+
 import Link from 'next/link';
 import Image from 'next/image';
+  //  User-এর profile image দেখাতে Next.js-এর optimized Image component আনা হয়েছে।
 import { useState } from 'react';
+
+// এখানে React থেকে useState নামের একটি Hook আনা হয়েছে.এর কাজ হলো component - এর ভেতরে এমন কোনো value রাখা, যেটা পরে পরিবর্তন হতে পারে। তোমার Navbar - এ এটি mobile menu open / close করার জন্য ব্যবহার হয়েছে:
+
 import { usePathname, useRouter } from 'next/navigation';
+// usePathname --- বর্তমানে কোন page open আছে জানে --সেই page-এর Navbar link highlight করে
+
+// link er smy -User কোনো লেখা বা button-এ click করলে অন্য page-এ যায়
+// useRouter কোনো কাজ শেষ হওয়ার পরে code নিজে থেকে user-কে অন্য page-এ পাঠায়..যেমন:
+
+// Login সফল → Homepage-এ পাঠানো
+// Logout সফল → Login page-এ পাঠানো
+// Form submit সফল → Details page-এ পাঠানো
+
+// তোমার Navbar-এ:
+
+// usePathname → Active link blue করে
+// useRouter   → Logout-এর পর login page-এ পাঠায়
 
 import {
   Menu,
@@ -15,11 +34,31 @@ import {
   LogOut,
 } from 'lucide-react';
 
+// lucide-react package থেকে icon আনা হয়েছে।
+// Icon	           কোথায় ব্যবহৃত
+// Menu------------Mobile menu বন্ধ থাকলে
+// X---------------	Mobile menu খোলা থাকলে
+// CarFront--------	Website logo
+// CalendarCheck---	My Bookings
+// LayoutDashboard-	My Added Cars
+// PlusCircle------	Add Car
+// LogOut----------	Logout
+
 import toast from 'react-hot-toast';
+// User-কে success বা error message দেখায়।
 // notification dekhay.(login Successful/failed)
+
 import { authClient } from '@/lib/auth-client';
 // authentication file(login ,logout ,session sob contrl hocche)
+// তোমার authentication system-এর client-side functions এখানে আছে।
+// এই Navbar-এ দুটি গুরুত্বপূর্ণ কাজে ব্যবহৃত হয়েছে:
+// authClient.useSession()
+// authClient.signOut()
+// useSession()--বর্তমানে user login করা আছে কি না জানতে ব্যবহৃত হয়।
+// signOut()--User-কে logout করাতে ব্যবহৃত হয়।
 
+
+// export default = এই file-এর প্রধান component অন্য file-এ ব্যবহার করার অনুমতি দেওয়া
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -27,6 +66,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: session, isPending } = authClient.useSession();
+  // এই line authentication system থেকে user-এর session information নিচ্ছে।
 
   const navLinks = [
     {
@@ -42,7 +82,9 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await authClient.signOut();
-
+      // await বলে:Logout পুরোপুরি শেষ না হওয়া পর্যন্ত পরের line-এ যেও না। awit nh dile এতে logout fail করলেও আগে থেকেই "Logout Successful" দেখাতে পারে।
+     
+      // async না দিয়ে function-এর ভিতরে await লিখলে error হবে:
       toast.success('Logout Successful');
 
       router.push('/login');
@@ -50,24 +92,34 @@ export default function Navbar() {
       toast.error('Logout Failed');
     }
   };
+  // এই handleLogout function-এর কাজ হলো user-কে logout করানো, success message দেখানো, তারপর login page-এ পাঠানো।
+  
+//   Code------	কাজ
+// await ------	Logout শেষ হওয়া পর্যন্ত অপেক্ষা করে
+// try---------	Error হতে পারে এমন code চালানোর চেষ্টা করে
+// catch-------	Error হলে সেটি ধরে এবং alternative কাজ করে
+// async	------  Function-এর ভিতরে await ব্যবহারের অনুমতি দেয়
 
+ //  async ---কারণ logout process শেষ হতে কিছু সময় লাগতে পারে।
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-lg">
+      {/* sticky-- Page scroll করলেও Navbar উপরে আটকে থাকবে। */}
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
           <CarFront className="h-8 w-8 text-blue-600" />
 
-          <h1 className="text-2xl font-bold text-gray-900">DriveNest</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Rentora</h1>
         </Link>
-
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map(link => (
             <Link
               key={link.path}
+              // React list-এর প্রতিটি item আলাদা করে চিনতে key ব্যবহার করে। Explore Cars-এর key:/explore-cars
               href={link.path}
               className={`font-medium transition hover:text-blue-600 ${
                 pathname === link.path ? 'text-blue-600' : 'text-gray-700'
               }`}
+              // এটি ternary condition .এই অংশটি current page-এর link blue করে।
             >
               {link.title}
             </Link>
@@ -97,7 +149,9 @@ export default function Navbar() {
             </>
           )}
         </div>
-{/* session && ---login kra thkle add car ,my bookings dekhao */}
+        {/* session && ---login kra thkle add car ,my bookings dekhao */}
+        {/* isPending না দিলে → flicker হতে পারে isPending দিলে → session check শেষ */}
+        {/* না হওয়া পর্যন্ত অপেক্ষা করে */}
         <div className="hidden items-center gap-4 md:flex">
           {!isPending && !session && (
             <>
@@ -114,7 +168,10 @@ export default function Navbar() {
               </Link>
             </>
           )}
-{/* !session---login nh kra thkle login, register dekhao */}
+          {/* !session---login nh kra thkle login, register dekhao */}
+          {/* isPending = checking চলছে কি না
+          session = checking শেষে user login করা
+          আছে কি না এবং user-এর data */}
           {!isPending && session && (
             <div className="group relative">
               <button className="flex items-center gap-2 rounded-full border border-gray-200 p-1 transition hover:shadow-md">
@@ -136,7 +193,7 @@ export default function Navbar() {
                   <h2 className="font-semibold text-gray-900">
                     {session?.user?.name}
                   </h2>
-
+                  {/* truncate ---Email বেশি লম্বা হলে শেষে ... দেখাবে */}
                   <p className="truncate text-sm text-gray-500">
                     {session?.user?.email}
                   </p>
@@ -179,19 +236,19 @@ export default function Navbar() {
             </div>
           )}
         </div>
-
         <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
           {isOpen ? (
             <X className="h-7 w-7 text-gray-900" />
           ) : (
             <Menu className="h-7 w-7 text-gray-900" />
           )}
+          {/* এটি ternary condition। */}
         </button>
       </nav>
-
       {isOpen && (
         <div className="border-t border-gray-200 bg-white md:hidden">
           <div className="space-y-3 px-4 py-5">
+            {/* .map() প্রতিটি object থেকে একটি mobile link তৈরি করছে। */}
             {navLinks.map(link => (
               <Link
                 key={link.path}
@@ -206,7 +263,6 @@ export default function Navbar() {
                 {link.title}
               </Link>
             ))}
-
             {session && (
               <>
                 <Link
@@ -231,7 +287,6 @@ export default function Navbar() {
                 </Link>
               </>
             )}
-
             {!session ? (
               <div className="flex flex-col gap-3 pt-3">
                 <Link href="/login">
