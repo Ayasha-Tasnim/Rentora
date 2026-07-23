@@ -14,12 +14,16 @@ const AvailableCars = () => {
   useEffect(() => {
     const loadCars = async () => {
       try {
+        console.log('SERVER URL:', process.env.NEXT_PUBLIC_SERVER_URL);
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/explore-cars`,
         );
+        console.log('Status:', res.status);
         const data = await res.json();
+        console.log('Data:', data);
         setCars(data || []);
       } catch (error) {
+         console.error('Fetch Error:', error);
         setCars([]);
       } finally {
         setLoading(false);
