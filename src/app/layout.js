@@ -33,6 +33,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-// export default শুধু Navbar-টাকে অন্য file-এ ব্যবহার করার সুযোগ দেয়।
-
-// Navbar সব page-এ দেখা যাওয়ার মূল কারণ হলো এটি সাধারণত layout.jsx-এর মধ্যে বসানো থাকে।

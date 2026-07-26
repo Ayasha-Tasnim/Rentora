@@ -8,22 +8,14 @@ const ExploreCars = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [search, setSearch] = useState('');
-  const [type, setType] = useState('');
-
   const router = useRouter();
 
-  const fetchCars = async (search = '', type = '') => {
+  const fetchCars = async () => {
     try {
       setLoading(true);
 
-      const params = new URLSearchParams();
-
-      if (search) params.append('search', search);
-      if (type) params.append('type', type);
-
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/explore-cars?${params.toString()}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/explore-cars`,
       );
 
       const data = await res.json();
@@ -36,12 +28,8 @@ const ExploreCars = () => {
   };
 
   useEffect(() => {
-    const loadCars = async () => {
-      await fetchCars(search, type);
-    };
-
-    loadCars();
-  }, [search, type]);
+    fetchCars();
+  }, []);
 
   if (loading) {
     return (
@@ -55,42 +43,6 @@ const ExploreCars = () => {
     <div className="max-w-7xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">Explore Cars</h1>
 
-      {/* 🔍 SEARCH + FILTER */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        {/* Search */}
-        <input
-          type="text"
-          placeholder="Search car name..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="border p-2 rounded w-full"
-        />
-
-        {/* Filter */}
-        <select
-          value={type}
-          onChange={e => setType(e.target.value)}
-          className="border p-2 rounded w-full"
-        >
-          <option value="">All Types</option>
-          <option value="SUV">SUV</option>
-          <option value="Sedan">Sedan</option>
-          <option value="Hatchback">Hatchback</option>
-        </select>
-
-        {/* Reset */}
-        <button
-          onClick={() => {
-            setSearch('');
-            setType('');
-          }}
-          className="bg-gray-200 px-4 py-2 rounded"
-        >
-          Reset
-        </button>
-      </div>
-
-      {/* CAR LIST */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {cars.length === 0 ? (
           <p className="text-center col-span-3">No cars found</p>
@@ -124,6 +76,7 @@ const ExploreCars = () => {
                 >
                   {car.availabilityStatus}
                 </p>
+
                 <p>Bookings: {car.booking_count || 0}</p>
 
                 <button

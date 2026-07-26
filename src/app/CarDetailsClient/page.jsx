@@ -10,8 +10,7 @@ const CarDetailsClient = ({ car }) => {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  // console.log(user);
-
+  
  const [form, setForm] = useState({
    driverNeeded: 'no',
    ACNeeded: 'no',
@@ -54,7 +53,7 @@ const CarDetailsClient = ({ car }) => {
 
       if (!res.ok) throw new Error('Booking failed');
 
-      alert('Booking successful 🚗');
+      alert('Booking successful ');
       toast('Booking successful');
 
       setForm({
@@ -91,16 +90,16 @@ const CarDetailsClient = ({ car }) => {
 
           <div className="space-y-1 text-gray-700">
             <p>
-              🚘 Type: <b>{car?.carType}</b>
+              Type: <b>{car?.carType}</b>
             </p>
             <p>
-              💰 Price: <b>${car?.dailyRentPrice}/day</b>
+            Price: <b>${car?.dailyRentPrice}/day</b>
             </p>
             <p>
-              💺 Seats: <b>{car?.seatCapacity}</b>
+             Seats: <b>{car?.seatCapacity}</b>
             </p>
             <p>
-              📍 Location: <b>{car?.pickupLocation}</b>
+             Location: <b>{car?.pickupLocation}</b>
             </p>
           </div>
 
@@ -130,7 +129,7 @@ const CarDetailsClient = ({ car }) => {
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center px-4 z-50">
           <div className="bg-white w-full max-w-md p-5 sm:p-6 rounded-2xl space-y-4 shadow-2xl">
             <h2 className="text-xl sm:text-2xl font-bold text-center">
-              Book This Car 🚗
+              Book This Car
             </h2>
 
             <div className="space-y-1 text-sm text-gray-700">

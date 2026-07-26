@@ -38,6 +38,7 @@ const AddCar = () => {
     setLoading(true);
 
     try {
+      
       const carData = {
         ...form,
         userEmail: session.user.email,
@@ -52,6 +53,7 @@ const AddCar = () => {
 
         body: JSON.stringify(carData),
       });
+      
 
       const data = await res.json();
 

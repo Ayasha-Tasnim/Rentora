@@ -52,7 +52,7 @@ const UpdateCar = ({ params }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
+////
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/car/${id}`, {
       method: 'PUT',
       headers: {
@@ -65,6 +65,7 @@ const UpdateCar = ({ params }) => {
       alert('Car updated successfully');
     }
   };
+  /////
 
   if (loading) {
     return <p className="p-6">Loading...</p>;

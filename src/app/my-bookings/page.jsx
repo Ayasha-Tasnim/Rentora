@@ -43,7 +43,7 @@ const MyBookingsPage = async () => {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
-          My Bookings 🚗
+          My Bookings 
         </h1>
         <p className="text-gray-500 mt-1">
           View all your booked cars in one place
@@ -72,11 +72,11 @@ const MyBookingsPage = async () => {
             </h2>
 
             <p className="text-blue-600 font-semibold mt-2">
-              💰 ${booking.price} / day
+              ${booking.price} / day
             </p>
 
             <div className="mt-3 space-y-1 text-sm text-gray-600">
-              <p>📍 Pickup: {booking.pickupLocation}</p>
+              <p> Pickup: {booking.pickupLocation}</p>
               <p>
               Driver:{' '}
                 <span className="font-medium">{booking.driverNeeded}</span>
@@ -88,7 +88,7 @@ const MyBookingsPage = async () => {
             </div>
 
             <div className="mt-4 text-xs text-gray-500 border-t pt-3">
-              📅 {new Date(booking.bookingDate).toLocaleString()}
+              {new Date(booking.bookingDate).toLocaleString()}
             </div>
           </div>
         ))}

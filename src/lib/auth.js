@@ -1,5 +1,3 @@
-//
-
 
 import { betterAuth } from 'better-auth';
 import { MongoClient } from 'mongodb';
